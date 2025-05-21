@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-z_uxcizybe4exn7+p0am_rm40u-btk0-v#1xh*q8$u)fz0k4u+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['onrender.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -130,6 +130,3 @@ TEMPLATES[0]['DIRS'] = [BASE_DIR / 'frontend' / 'dist']
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True
 # settings.py
-CORS_ALLOWED_ORIGINS = [
-    "https://sentiflip.onrender.com",
-]
