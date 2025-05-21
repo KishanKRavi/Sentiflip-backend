@@ -1,0 +1,33 @@
+.env*
+/sentiment-frontend/*
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+*.pyo
+
+# Virtual env
+venv/
+env/
+.venv/
+
+# Static files
+staticfiles/
+media/
+
+# VS Code
+.vscode/
+
+# Node and frontend
+/sentiment-frontend/
+node_modules/
+build/
+
+# Secrets
+.env
