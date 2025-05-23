@@ -3,13 +3,10 @@ import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from collections import Counter
 import re
-
 nltk.download('vader_lexicon')
 sia = SentimentIntensityAnalyzer()
-
 def clean_text(text):
     return re.sub(r'[^\w\s]', '', text.lower())
-
 def extract_keywords(reviews, top_n=5):
     all_words = []
     for review, _ in reviews:
@@ -17,10 +14,8 @@ def extract_keywords(reviews, top_n=5):
         all_words.extend(words)
     common_words = Counter(all_words).most_common(top_n)
     return [word for word, _ in common_words if word not in ['the', 'is', 'was', 'very', 'and', 'this', 'with']]
-
 def analyze_sentiments(reviews):
     sentiment_data = {"positive": [], "negative": [], "neutral": [], "scores": []}
-
     for review in reviews:
         score = sia.polarity_scores(review)
         compound = score['compound']
@@ -31,24 +26,20 @@ def analyze_sentiments(reviews):
             sentiment_data["negative"].append((review, compound))
         else:
             sentiment_data["neutral"].append((review, compound))
-
     total = len(reviews)
     pos_count, neg_count, neu_count = map(len, [sentiment_data["positive"], sentiment_data["negative"], sentiment_data["neutral"]])
     avg_score = sum([(x + 1) * 50 for x in sentiment_data["scores"]]) / total
-
     def get_sentiment_label(score):
         if score >= 85: return "Very Positive"
         elif score >= 70: return "Positive"
         elif score >= 40: return "Neutral"
         elif score >= 20: return "Negative"
         else: return "Very Negative"
-
     def get_final_verdict(score, positive_percent):
         if score > 75 and positive_percent > 60: return "Highly Recommended ✅"
         elif score > 60: return "Recommended 👍"
         elif score > 45: return "Consider Alternatives ⚠️"
         else: return "Not Recommended ❌"
-
     return {
         "positive_percent": round((pos_count / total) * 100, 2),
         "negative_percent": round((neg_count / total) * 100, 2),
