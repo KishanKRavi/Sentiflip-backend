@@ -47,3 +47,5 @@ websocket-client==1.8.0
 websockets==15.0.1
 whitenoise==6.9.0
 wsproto==1.2.0
+undetected-chromedriver==3.5.5
+chromedriver-binary==120.0.6099.109.0

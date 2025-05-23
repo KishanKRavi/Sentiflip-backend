@@ -121,27 +121,24 @@
 #     return all_reviews
 
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
 
-# Chrome binary paths (used in Docker/Render)
-CHROMEDRIVER_PATH = "/usr/bin/chromedriver"
-CHROME_BINARY_PATH = "/usr/bin/chromium"
-
+# Configure headless Chrome using undetected_chromedriver
 def configure_driver():
-
-    
-    options = webdriver.ChromeOptions()
-    options.binary_location = CHROME_BINARY_PATH
+    options = uc.ChromeOptions()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    return webdriver.Chrome(service=Service(CHROMEDRIVER_PATH), options=options)
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_argument(
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    )
+    return uc.Chrome(options=options)
 
 def search_product(query):
     driver = configure_driver()
